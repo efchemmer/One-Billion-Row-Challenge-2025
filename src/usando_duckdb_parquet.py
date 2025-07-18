@@ -7,7 +7,7 @@ def create_duckdb():
             MIN(temperature) AS min_temperature,
             CAST(AVG(temperature) AS DECIMAL(3,1)) AS mean_temperature,
             MAX(temperature) AS max_temperature
-        FROM read_parquet('data/medicoes_1000000000.parquet/*.parquet')
+        FROM read_parquet('data/generated/medicoes_1000000000.parquet/*.parquet')
         GROUP BY station
         ORDER BY station
     """).show()

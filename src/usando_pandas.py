@@ -6,7 +6,7 @@ CONCURRENCY = cpu_count()
 
 total_linhas = 1_000_000_000  # Total de linhas conhecido
 chunksize = 100_000_000  # Define o tamanho do chunk
-filename = "data/measurements.txt"  # Certifique-se de que este é o caminho correto para o arquivo
+filename = "data/generated/medicoes_1000000000.txt"  # Certifique-se de que este é o caminho correto para o arquivo
 
 def process_chunk(chunk):
     # Agrega os dados dentro do chunk usando Pandas

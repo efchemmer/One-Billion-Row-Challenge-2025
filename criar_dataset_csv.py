@@ -36,7 +36,7 @@ def gerar_dados_teste(num_registros):
     inicio_tempo = time.time()
     nomes_estacoes = construir_lista_estacoes_meteorologicas()
     estacoes_10k_max = random.choices(nomes_estacoes, k=10_000)
-    arquivo_saida = f"./data/medicoes_{num_registros}.txt"
+    arquivo_saida = f"./data/generated/medicoes_{num_registros}.txt"
     tamanho_lote = 10_000  # Processamento em lotes
 
     print(f"Criando {arquivo_saida}...")

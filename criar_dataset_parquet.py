@@ -31,6 +31,14 @@ def formatar_tempo_decorrido(segundos):
     return f"{int(minutos)}m {int(segundos)}s" if minutos else f"{segundos:.2f}s"
 
 
+def calcular_tamanho_pasta(path):
+    total = 0
+    for dirpath, _, filenames in os.walk(path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            total += os.path.getsize(fp)
+    return total
+
 def gerar_dados_teste(num_registros):
     """
     Gera e salva um arquivo Parquet com medições sintéticas de temperatura.
@@ -40,7 +48,7 @@ def gerar_dados_teste(num_registros):
     estacoes_10k_max = random.choices(nomes_estacoes, k=10_000)
     
     # Caminho de saída para Parquet
-    arquivo_saida = f"./data/medicoes_{num_registros}.parquet"
+    arquivo_saida = f"./data/generated/medicoes_{num_registros}.parquet"
     tamanho_lote = 10_000  # Processamento em lotes
     lote_dados = []
 
@@ -61,7 +69,7 @@ def gerar_dados_teste(num_registros):
             salvar_parquet(lote_dados, arquivo_saida)
 
         # Verifica o tamanho do arquivo gerado
-        tamanho_arquivo = os.path.getsize(arquivo_saida)
+        tamanho_arquivo = calcular_tamanho_pasta(arquivo_saida)
         print(f"Arquivo Parquet gerado: {arquivo_saida}")
         print(f"Tamanho final: {converter_bytes(tamanho_arquivo)}")
         print(f"Tempo decorrido: {formatar_tempo_decorrido(time.time() - inicio_tempo)}")
@@ -82,5 +90,5 @@ def salvar_parquet(lote_dados, arquivo_saida):
 
 
 if __name__ == "__main__":
-    num_registros = 150_000_000  # Número de registros parametrizado
+    num_registros = 1_000_000_000  # Número de registros parametrizado
     gerar_dados_teste(num_registros)
