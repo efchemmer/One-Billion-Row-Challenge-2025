@@ -8,6 +8,7 @@ The data file consists of temperature measurements from various weather stations
 
 Here are ten sample lines from the file:
 
+```
 Hamburg;12.0
 Bulawayo;8.9
 Palembang;38.8
@@ -18,7 +19,7 @@ Istanbul;6.2
 Roseau;34.4
 Conakry;31.2
 Istanbul;23.0
-
+```
 
 The challenge is to develop a Python program capable of reading this file and calculating the minimum, average (rounded to one decimal), and maximum temperature for each station, displaying the results in a table sorted by station name.
 
