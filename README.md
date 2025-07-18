@@ -49,10 +49,6 @@ The challenge is to develop a Python program capable of reading this file and ca
 
 ---
 
-**Project diagram:** [app.excalidraw.com](https://link.excalidraw.com/l/8pvW6zbNUnD/AOSRHr9dKWd)
-
----
-
 ## **Today’s Overview**
 
 ### **Main Objective**
