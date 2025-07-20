@@ -9,19 +9,19 @@ spark = SparkSession.builder \
     .appName("OneBillionRowChallenge") \
     .getOrCreate()
 
-filename = "data/generated/medicoes_1000000000.txt"
+filename = "data/generated/medicoes_1000000000.parquet/"
 
 schema = StructType([
     StructField("station", StringType(), True),
-    StructField("measure", DoubleType(), True)
+    StructField("temperature", DoubleType(), True)
 ])
 
 def create_df_with_pyspark(filename):
-    df = spark.read.csv(filename, sep=";", schema=schema)
+    df = spark.read.parquet(filename)
     aggregated_df = df.groupBy("station").agg(
-        spark_min("measure").alias("min"),
-        spark_max("measure").alias("max"),
-        spark_mean("measure").alias("mean")
+        spark_min("temperature").alias("min"),
+        spark_max("temperature").alias("max"),
+        spark_mean("temperature").alias("mean")
     ).orderBy("station")
     return aggregated_df
 

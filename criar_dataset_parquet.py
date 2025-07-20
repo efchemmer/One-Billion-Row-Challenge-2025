@@ -60,7 +60,7 @@ def gerar_dados_teste(num_registros):
             lote_dados.extend([(estacao, round(random.uniform(-99.9, 99.9), 1)) for estacao in lote])
 
             # Salvar em lotes para evitar consumo excessivo de memória
-            if len(lote_dados) >= 1_000_000:
+            if len(lote_dados) >= 40_000_000:
                 salvar_parquet(lote_dados, arquivo_saida)
                 lote_dados = []  # Limpa a lista para o próximo lote
 
@@ -78,17 +78,38 @@ def gerar_dados_teste(num_registros):
         print("Erro ao criar o arquivo Parquet:", e)
 
 
-def salvar_parquet(lote_dados, arquivo_saida):
-    """
-    Salva um lote de dados no formato Parquet.
-    """
-    df = pd.DataFrame(lote_dados, columns=["station", "temperature"])
-    table = pa.Table.from_pandas(df)
+# def salvar_parquet(lote_dados, arquivo_saida):
+#     """
+#     Salva um lote de dados no formato Parquet.
+#     """
+#     df = pd.DataFrame(lote_dados, columns=["station", "temperature"])
+#     table = pa.Table.from_pandas(df)
 
-    # Salvar no formato Parquet com Append (salva em múltiplos arquivos)
-    pq.write_to_dataset(table, root_path=arquivo_saida, filesystem=None)
+#     # Salvar no formato Parquet com Append (salva em múltiplos arquivos)
+#     pq.write_to_dataset(table, root_path=arquivo_saida, filesystem=None)
+
+def salvar_parquet(lote_dados, arquivo_saida):
+    df = pd.DataFrame(lote_dados, columns=["station", "temperature"])
+
+    # Pegue todas estações únicas no batch atual
+    estações_unicas = df["station"].unique()
+    
+    # Defina um tamanho máximo de estações por batch para evitar ultrapassar limite
+    max_estacoes_por_batch = 1000
+
+    for i in range(0, len(estações_unicas), max_estacoes_por_batch):
+        grupo_estacoes = estações_unicas[i:i + max_estacoes_por_batch]
+        df_grupo = df[df["station"].isin(grupo_estacoes)]
+        table = pa.Table.from_pandas(df_grupo, preserve_index=False)
+        
+        pq.write_to_dataset(
+            table,
+            root_path=arquivo_saida,
+            partition_cols=["station"],
+            max_partitions=10240  # só para garantir que o limite seja maior
+        )
 
 
 if __name__ == "__main__":
-    num_registros = 1_000_000_000  # Número de registros parametrizado
+    num_registros = 1_000_000_002  # Número de registros parametrizado
     gerar_dados_teste(num_registros)
