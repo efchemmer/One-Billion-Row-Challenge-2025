@@ -80,19 +80,19 @@ Fill in your benchmark results here:
 
 | Implementation | File Format | Execution Time (sec) |
 |----------------|-------------|----------------|
-| **DuckDB (CSV)** | CSV | `9.33` | 
 | **DuckDB (Parquet)** | Parquet | `3.37` | 
-| **Polars** | CSV | `74.13` | 
-| **PySpark (CSV)** | CSV | `60.77` |
+| **DuckDB (CSV)** | CSV | `9.33` | 
 | **PySpark (Parquet)** | Parquet | `12.99` |
+| **PySpark (CSV)** | CSV | `60.77` |
+| **Polars** | CSV | `74.13` | 
 | **Pandas (Multiprocessing)** | CSV | `152.60` |
 
 ### **File Format Comparison**
 
 | Format | File Size | Compression |
 |--------|-----------|-------------------|
-| **CSV** | `~15 GB` | `1.0x (baseline)` |
 | **Parquet** | `~5 GB` | `~3x smaller` |
+| **CSV** | `~15 GB` | `1.0x (baseline)` |
 
 **OBS:** Parquet partitions with ~240Mb.
 
