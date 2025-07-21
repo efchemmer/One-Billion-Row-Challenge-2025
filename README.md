@@ -18,12 +18,11 @@ This challange was inspired by [The One Billion Row Challenge](https://github.co
   - **Apache Airflow**: Workflow orchestration with DuckDB and PostgreSQL integration
 - **File Format Analysis**: Compare performance between CSV and Parquet file formats
 - **Optimization Techniques**: Explore parallel processing, chunking, streaming, and memory management strategies
-- **Real-world Application**: Demonstrate practical data engineering workflows for large-scale analytics
 - **Community Learning**: Share performance insights and best practices with the data engineering community
 
 ### **Data Generation and Formats**
 
-The project includes sophisticated data generation capabilities to create realistic test datasets:
+The project includes data generation capabilities to create realistic test datasets:
 
 #### **CSV Dataset Generation** (`criar_dataset_csv.py`)
 - Generates synthetic temperature measurements from 10,000+ real weather station names
@@ -60,24 +59,16 @@ The project includes multiple implementations to compare different technologies 
 #### **1. DuckDB Solutions**
 - **`src/usando_duckdb.py`**: Direct CSV processing using DuckDB's native SQL engine
 - **`src/usando_duckdb_parquet.py`**: Optimized Parquet processing with columnar analytics
-- **Features**: In-memory processing, SQL interface, automatic optimization
 
 #### **2. Polars Implementation**
 - **`src/usando_polars.py`**: High-performance DataFrame processing with lazy evaluation
-- **Features**: Streaming processing, memory efficiency, Rust-based performance
 
 #### **3. PySpark Solutions**
 - **`src/usando_pyspark.py`**: Distributed processing for CSV data
 - **`src/usando_pyspark_parquet.py`**: Spark SQL with Parquet optimization
-- **Features**: Cluster computing, fault tolerance, scalable processing
 
 #### **4. Pandas Implementation**
 - **`src/usando_pandas.py`**: Traditional DataFrame processing with multiprocessing optimization
-- **Features**: Familiar API, chunked processing, parallel execution
-
-#### **5. Workflow Orchestration**
-- **Apache Airflow DAG**: Production-ready workflow with DuckDB processing and PostgreSQL storage
-- **Features**: Scheduling, monitoring, data pipeline management
 
 ---
 
@@ -87,40 +78,37 @@ The project includes multiple implementations to compare different technologies 
 
 Fill in your benchmark results here:
 
-| Implementation | File Format | Execution Time | Memory Usage | CPU Cores | Notes |
-|----------------|-------------|----------------|--------------|-----------|-------|
-| **DuckDB (CSV)** | CSV | `_____ sec` | `_____ GB` | `16` | Direct SQL processing |
-| **DuckDB (Parquet)** | Parquet | `_____ sec` | `_____ GB` | `16` | Columnar optimization |
-| **Polars** | CSV | `_____ sec` | `_____ GB` | `Auto` | Streaming lazy evaluation |
-| **PySpark (CSV)** | CSV | `_____ sec` | `_____ GB` | `Auto` | Distributed processing |
-| **PySpark (Parquet)** | Parquet | `_____ sec` | `_____ GB` | `Auto` | Spark + Parquet optimization |
-| **Pandas (Multiprocessing)** | CSV | `_____ sec` | `_____ GB` | `Auto` | Chunked parallel processing |
-| **Airflow + DuckDB** | Parquet | `_____ sec` | `_____ GB` | `16` | Workflow orchestration |
+| Implementation | File Format | Execution Time (sec) |
+|----------------|-------------|----------------|
+| **DuckDB (CSV)** | CSV | `_____` | 
+| **DuckDB (Parquet)** | Parquet | `_____` | 
+| **Polars** | CSV | `_____` | 
+| **PySpark (CSV)** | CSV | `_____` |
+| **PySpark (Parquet)** | Parquet | `_____` |
+| **Pandas (Multiprocessing)** | CSV | `_____` |
 
 ### **File Format Comparison**
 
-| Format | File Size | Compression Ratio | Read Performance | Query Performance |
-|--------|-----------|-------------------|------------------|-------------------|
-| **CSV** | `~14 GB` | `1.0x (baseline)` | `_____` | `_____` |
-| **Parquet** | `~3-4 GB` | `~3.5x smaller` | `_____` | `_____` |
+| Format | File Size | Compression |
+|--------|-----------|-------------------|
+| **CSV** | `~14 GB` | `1.0x (baseline)` |
+| **Parquet** | `~3-4 GB` | `~3.5x smaller` |
 
 ### **Technology Analysis**
 
 #### **🏆 Performance Champions**
-- **Fastest Overall**: `_____________`
-- **Most Memory Efficient**: `_____________`
-- **Best for Large Scale**: `_____________`
-- **Most Developer Friendly**: `_____________`
+- **Fastest Overall**: `DuckDB`
 
-#### **📊 Detailed Analysis**
 
-| Technology | Strengths | Weaknesses | Best Use Case |
-|------------|-----------|------------|---------------|
-| **DuckDB** | • Fast analytical queries<br>• SQL interface<br>• Automatic optimization | • Single-node limitation<br>• Memory constraints | OLAP workloads, analytics |
-| **Polars** | • Excellent performance<br>• Memory efficiency<br>• Lazy evaluation | • Newer ecosystem<br>• Learning curve | Data transformation pipelines |
-| **PySpark** | • Distributed processing<br>• Fault tolerance<br>• Mature ecosystem | • Setup complexity<br>• Overhead for small data | Big data, cluster processing |
-| **Pandas** | • Familiar API<br>• Rich ecosystem<br>• Flexible | • Memory limitations<br>• Single-threaded (default) | Data analysis, prototyping |
-| **Airflow** | • Production workflows<br>• Monitoring<br>• Scheduling | • Infrastructure overhead<br>• Complexity | Data pipelines, ETL |
+#### **� Tool Comparison: When to Use What?**
+
+| Tool | Best For | Data Size | Performance | Parallelism | Disk/Memory | Ideal Use Cases |
+|------|----------|-----------|-------------|-------------|-------------|-----------------|
+| **Python** | Small tasks, custom logic | 💾 < 10MB | 😐 Slow | ❌ Single-threaded | Memory only | Scripts, ETL glue code, testing |
+| **Pandas** | Tabular data, exploratory work | 💾 < 1GB RAM | ⚡ Fast (in-memory) | ❌ Single-threaded | Memory only | Data wrangling, ML pipelines |
+| **DuckDB** | Analytics on medium data | 💾 < 100GB (local) | ⚡ Very fast (vectorized) | ✅ Multi-threaded | Memory + temp disk | Interactive SQL, file-based ETL |
+| **Polars** | Fast tabular ops | 💾 1GB – 100GB | ⚡ Super fast (Rust backend) | ✅ Multi-threaded | Memory (with chunked exec) | Replacement for Pandas |
+| **PySpark** | Distributed big data | 🏢 10GB – 100TB+ | 🚀 High (with cluster) | ✅ Yes (clustered) | Can spill to disk | Batch jobs, lakehouse ETL |
 
 ---
 
@@ -157,11 +145,7 @@ python src/usando_pandas.py
 
 ### **Hardware Specifications**
 Document your testing environment:
-- **CPU**: `_____________`
-- **RAM**: `_____________`
-- **Storage**: `_____________`
-- **OS**: `_____________`
-- **Python Version**: `_____________`
+- Macbook Pro - M4 Pro - 24Gb RAM
 
 ---
 
@@ -169,7 +153,6 @@ Document your testing environment:
 
 Feel free to contribute new implementations, optimizations, or benchmark results! Areas for improvement:
 - Additional data processing libraries (Ray, Dask, etc.)
-- GPU acceleration experiments
 - Cloud-based solutions
 - Performance optimizations
 - Memory profiling and analysis
@@ -183,4 +166,3 @@ Feel free to contribute new implementations, optimizations, or benchmark results
 - [Polars Documentation](https://pola.rs/)
 - [Apache Spark Documentation](https://spark.apache.org/)
 - [Pandas Documentation](https://pandas.pydata.org/)
-- [Apache Airflow Documentation](https://airflow.apache.org/)
