@@ -80,24 +80,26 @@ Fill in your benchmark results here:
 
 | Implementation | File Format | Execution Time (sec) |
 |----------------|-------------|----------------|
-| **DuckDB (CSV)** | CSV | `_____` | 
-| **DuckDB (Parquet)** | Parquet | `_____` | 
-| **Polars** | CSV | `_____` | 
-| **PySpark (CSV)** | CSV | `_____` |
-| **PySpark (Parquet)** | Parquet | `_____` |
-| **Pandas (Multiprocessing)** | CSV | `_____` |
+| **DuckDB (CSV)** | CSV | `9.33` | 
+| **DuckDB (Parquet)** | Parquet | `3.37` | 
+| **Polars** | CSV | `74.13` | 
+| **PySpark (CSV)** | CSV | `60.77` |
+| **PySpark (Parquet)** | Parquet | `12.99` |
+| **Pandas (Multiprocessing)** | CSV | `152.60` |
 
 ### **File Format Comparison**
 
 | Format | File Size | Compression |
 |--------|-----------|-------------------|
-| **CSV** | `~14 GB` | `1.0x (baseline)` |
-| **Parquet** | `~3-4 GB` | `~3.5x smaller` |
+| **CSV** | `~15 GB` | `1.0x (baseline)` |
+| **Parquet** | `~5 GB` | `~3x smaller` |
+
+**OBS:** Parquet partitions with ~240Mb.
 
 ### **Technology Analysis**
 
 #### **🏆 Performance Champions**
-- **Fastest Overall**: `DuckDB`
+- **Fastest Overall**: `DuckDB + Parquet`
 
 
 #### **� Tool Comparison: When to Use What?**
